@@ -56,7 +56,11 @@ import threading  # Import the threading module to work with threads and events.
 class Publisher:
     def __init__(self):
         # Initialize a dictionary to hold subscribers for different topics
-        self.subscribers = {}
+        self.subscribers = {
+            'Computing' : [],
+            'Math' : [],
+            'Physics' : []
+        }
 
     # Method to subscribe a subscriber to a specific topic
     def subscribe(self, subscriber, topic):
@@ -103,13 +107,26 @@ publisher = Publisher()
 subscriber_1 = Subscriber("Subscriber 1")
 subscriber_2 = Subscriber("Subscriber 2")
 subscriber_3 = Subscriber("Subscriber 3")
+subscriber_4 = Subscriber("Ben")
+subscriber_5 = Subscriber("Jack")
+
 
 # Subscribe subscribers to different topics
 publisher.subscribe(subscriber_1, "sports")          # Subscriber 1 subscribes to "sports"
 publisher.subscribe(subscriber_2, "entertainment")   # Subscriber 2 subscribes to "entertainment"
 publisher.subscribe(subscriber_3, "sports")          # Subscriber 3 subscribes to "sports"
+publisher.subscribe(subscriber_4, "Math")            # Ben subscribes to "Math"
+publisher.subscribe(subscriber_5, "Physics")         # Jack subscribes to "Physics"
 
 # Publish a message to the "sports" topic
 publisher.publish("Soccer match result", "sports")
 # Call the receive method of subscriber_1 to process the message
 subscriber_1.receive()
+
+# Publish a message to the "entertainment" topic
+publisher.publish("New movie release", "entertainment")
+subscriber_2.receive()
+
+# Publish a message to the "Math" topic
+publisher.publish("New theorem discovered", "Math")
+subscriber_4.receive()
